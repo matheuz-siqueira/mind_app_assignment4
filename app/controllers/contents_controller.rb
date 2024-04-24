@@ -5,6 +5,10 @@ class ContentsController < ApplicationController
     @contents = current_user.contents 
   end
 
+  def show
+    @content = Content.find(params[:id]) 
+  end
+
   def new
     @content = Content.new  
   end
