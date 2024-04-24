@@ -14,8 +14,18 @@
     <%= form.text_area :description, placeholder: 'Something content...'%>
   </div>
 
+  <div class='field'>
+    <%= form.label :tags %>
+    <%= collection_select(:tag_content, :tag_id, Tag.all, :id, :name, {},{class: 'select2', multiple: 'multiple'}) %>
+  </div>
+
   <div class="actions">
     <%= form.submit 'Save' %>
   </div>
-
 <% end %>
+
+<script> 
+  $(document).ready(function() {
+    $('.select2').select2();
+  });
+</script>
