@@ -43,6 +43,7 @@ gem "devise"
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 
+gem "pry"
 # Use Sass to process CSS
 # gem "sassc-rails"
 
@@ -65,3 +66,7 @@ group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
 end
+
+gem "jsbundling-rails", "~> 1.3"
+
+gem "cssbundling-rails", "~> 1.4"
