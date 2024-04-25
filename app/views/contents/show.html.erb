@@ -3,14 +3,17 @@
 <%= raw @markdown.render (@content.description)%>
 <br>
 
-<span>Tags:</br>
-<% @content.tags.each do |tag| %>
-  <% if @content.tags.count == 1 %>
-    #<%= tag.name %>
-  <% else %>
-    #<%= tag.name %> | 
-  <% end %>  
-<% end %>
+
+<% if @content.tags.present?%>
+  <span>Tags:</br>
+  <% @content.tags.each do |tag| %>
+    <% if @content.tags.count == 1 %>
+      #<%= tag.name %>
+    <% else %>
+      #<%= tag.name %>,  
+    <% end %>  
+  <% end %>
+<%end%>
 
 </br>
 <%= link_to 'Edit', edit_content_path(@content), class: 'btn btn-outline-warning' %> 

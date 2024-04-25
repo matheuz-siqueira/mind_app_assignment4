@@ -1,7 +1,7 @@
 class ContentsController < ApplicationController
   before_action :authenticate_user! 
   before_action :set_content, only: %i[show edit update destroy]
-  before_action :all_tags, only: [:edit, :new]
+  # before_action :all_tags, only: [:edit, :new]
 
   def index
     @contents = current_user.contents 
@@ -35,6 +35,7 @@ class ContentsController < ApplicationController
   def edit; end
 
   def update 
+    binding.pry
     if @content.update(content_params)
       process_tag!
       redirect_to contents_path, notice: 'Content successfully updated!'
@@ -50,24 +51,22 @@ class ContentsController < ApplicationController
 
   private 
 
-    def tag_params
-      params.require(:content).permit(tags: [])[:tags] 
+    def tags_params
+      params.require(:content).permit(tags: []).reject(&blank?)
+      # content_params.extract!('tags').reject(&blank?) 
     end
 
     def content_params 
       params.require(:content).permit(:title, :description)
+      # params.require(:content).permit!
     end
 
     def set_content
       @content = Content.find(params[:id])
     end
 
-    def all_tags
-      @tags = current_user.tags.all
-    end
-
     def process_tag!
-      tags = tag_params.map do |tag_name|
+      tags = tags_params.map do |tag_name|
         current_user.tags.where(name: tag_name).first_or_initialize
       end
       @content.tags = tags

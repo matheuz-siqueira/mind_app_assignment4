@@ -16,7 +16,8 @@
 
   <div class='form-group mb-2'>
     <%= form.label :tags %>
-    <%= collection_select(:tag_content, :tag_id, Tag.all, :id, :name, {},{class: 'select2 form-control', multiple: 'multiple'}) %>
+    <%#= collection_select(:tag_content, :tag_id, Tag.all, :id, :name, {},{class: 'select2', multiple: 'multiple'}) %>
+    <%= form.select :tags, options_for_select(current_user.tags.pluck(:name), content.tags.pluck(:name)), {}, { class: 'select2', multiple: 'multiple' }%>
   </div>
 
   <div class='actions'>
