@@ -1,0 +1,10 @@
+.links{
+  text-decoration: none; 
+  color: black; 
+  padding: 5px; 
+}
+
+.links:hove{
+  background-color: black;
+  color: white;
+}
