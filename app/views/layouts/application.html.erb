@@ -17,16 +17,10 @@
   </head>
 
   <body>
-
-    <% if user_signed_in? %>
-      <%= link_to 'Home', home_index_path %>
-      <%= link_to 'Contents', contents_path %>
-      <%= link_to 'Logout', destroy_user_session_path, data: {turbo_method: :delete} %>
-    <% end %>
-
-
-    <div class="notice"> <%= notice %> </div>
-    <div class="alert"> <%= alert %> </div>
-    <%= yield %>
+    <%= render 'shared/navbar'%>
+    <div class="container">
+      <%= render 'shared/flash'%>
+      <%= yield %>
+    </div>
   </body>
 </html>
