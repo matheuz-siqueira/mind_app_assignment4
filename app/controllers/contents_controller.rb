@@ -49,7 +49,7 @@ class ContentsController < ApplicationController
   private 
 
     def tag_params
-      params.require(:content).permit(tags: [])[:tags].reject(&:blank?) 
+      params.require(:content).permit(tags: [])[:tags] 
     end
 
     def content_params 
