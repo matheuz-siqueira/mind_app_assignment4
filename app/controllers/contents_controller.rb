@@ -1,7 +1,7 @@
 class ContentsController < ApplicationController
   before_action :authenticate_user! 
   before_action :set_content, only: %i[show edit update destroy]
-  # before_action :all_tags, only: [:edit, :new]
+  # before_action :tags_params, only: %i[create update]
 
   def index
     @contents = current_user.contents 
@@ -21,10 +21,11 @@ class ContentsController < ApplicationController
   end
 
   def create
+    binding.pry
     @content = current_user.contents.build(content_params)
     
     if @content.save 
-      process_tag!
+      process_tag!(tags_params)
       redirect_to contents_path, notice: 'Content successfully created!'
     else
       render :new, status: :unprocessable_entity
@@ -35,9 +36,12 @@ class ContentsController < ApplicationController
   def edit; end
 
   def update 
-    binding.pry
     if @content.update(content_params)
-      process_tag!
+      tags = tags_params.map do |tag_name|
+        current_user.tags.where(name: tag_name).first_or_initialize
+      end
+      @content.tags = tags
+
       redirect_to contents_path, notice: 'Content successfully updated!'
     else
       render :edit, status: :unprocessable_entity
@@ -50,25 +54,16 @@ class ContentsController < ApplicationController
   end
 
   private 
-
-    def tags_params
-      params.require(:content).permit(tags: []).reject(&blank?)
-      # content_params.extract!('tags').reject(&blank?) 
-    end
-
-    def content_params 
-      params.require(:content).permit(:title, :description)
-      # params.require(:content).permit!
-    end
-
-    def set_content
-      @content = Content.find(params[:id])
-    end
-
-    def process_tag!
-      tags = tags_params.map do |tag_name|
-        current_user.tags.where(name: tag_name).first_or_initialize
-      end
-      @content.tags = tags
-    end
+  def content_params 
+    # params.require(:content).permit!
+    params.require(:content).permit(:title, :description)
+  end
+  
+  def set_content
+    @content = Content.find(params[:id])
+  end
+  
+  def tags_params
+    params.require(:content).permit(tags: [])[:tags].reject(&:blank?)
+  end
 end
