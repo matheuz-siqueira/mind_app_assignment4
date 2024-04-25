@@ -21,11 +21,10 @@ class ContentsController < ApplicationController
   end
 
   def create
-    binding.pry
     @content = current_user.contents.build(content_params)
     
     if @content.save 
-      process_tag!(tags_params)
+      process_tags!
       redirect_to contents_path, notice: 'Content successfully created!'
     else
       render :new, status: :unprocessable_entity
@@ -37,11 +36,7 @@ class ContentsController < ApplicationController
 
   def update 
     if @content.update(content_params)
-      tags = tags_params.map do |tag_name|
-        current_user.tags.where(name: tag_name).first_or_initialize
-      end
-      @content.tags = tags
-
+      process_tags!
       redirect_to contents_path, notice: 'Content successfully updated!'
     else
       render :edit, status: :unprocessable_entity
@@ -65,5 +60,12 @@ class ContentsController < ApplicationController
   
   def tags_params
     params.require(:content).permit(tags: [])[:tags].reject(&:blank?)
+  end
+
+  def process_tags!
+    tags = tags_params.map do |tag_name|
+      current_user.tags.where(name: tag_name).first_or_initialize
+    end
+    @content.tags = tags
   end
 end
