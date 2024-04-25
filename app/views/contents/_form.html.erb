@@ -4,23 +4,23 @@
 <% end %>
 
 <%= form_with model: content do |form| %>
-  <div class='field'>
+  <div class='form-group'>
     <%= form.label :title %>
-    <%= form.text_field :title, placeholder: 'Title'%>
+    <%= form.text_field :title, placeholder: 'Title', class: 'form-control'%>
   </div>
 
-  <div class='field'>
+  <div class='form-group'>
     <%= form.label :description %>
-    <%= form.text_area :description, placeholder: 'Something content...'%>
+    <%= form.text_area :description, placeholder: 'Something content...', class: 'form-control'%>
   </div>
 
-  <div class='field'>
+  <div class='form-group mb-2'>
     <%= form.label :tags %>
-    <%= collection_select(:tag_content, :tag_id, Tag.all, :id, :name, {},{class: 'select2', multiple: 'multiple'}) %>
+    <%= collection_select(:tag_content, :tag_id, Tag.all, :id, :name, {},{class: 'select2 form-control', multiple: 'multiple'}) %>
   </div>
 
-  <div class="actions">
-    <%= form.submit 'Save' %>
+  <div class='actions'>
+    <%= form.submit 'Save', class: 'btn btn-primary' %>
   </div>
 <% end %>
 
