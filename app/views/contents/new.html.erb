@@ -1,13 +1,12 @@
 <h1>New Content</h1>
 
+<div style="width: 700px;">
+  <div class="d-flex justify-content-between gap-1">
+    <div id="new-content p-3 ">
+      <%= render 'form', content: @content, locals: {tags: @tags} %>
 
-<div class="d-flex justify-content-aroud">
-  <div id="new-content">
-    <%= render 'form', content: @content, locals: {tags: @tags} %>
-
-  </div>
-  <div>
-    <div class="create-tag">
+    </div>
+    <div class="create-tag p-3">
       <%= turbo_frame_tag 'tag-form' do %>
         <%= link_to 'Add tag', new_tag_path, class: 'btn btn-outline-primary'%>
       <% end %>
