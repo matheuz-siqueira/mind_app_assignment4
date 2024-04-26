@@ -16,7 +16,8 @@ class ContentsController < ApplicationController
   end
   
   def new 
-    @content = Content.new  
+    @content = Content.new 
+    @tags = current_user.tags.all  
   end
 
   def create

@@ -1,3 +1,16 @@
 <h1>New Content</h1>
 
-<%= render 'form', content: @content, locals: {tags: @tags} %>
+
+<div class="d-flex justify-content-aroud">
+  <div id="new-content">
+    <%= render 'form', content: @content, locals: {tags: @tags} %>
+
+  </div>
+  <div>
+    <div class="create-tag">
+      <%= turbo_frame_tag 'tag-form' do %>
+        <%= link_to 'Add tag', new_tag_path, class: 'btn btn-outline-primary'%>
+      <% end %>
+    </div>
+  </div>
+</div>

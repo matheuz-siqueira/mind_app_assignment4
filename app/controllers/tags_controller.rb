@@ -17,7 +17,8 @@ class TagsController < ApplicationController
     @tag.user = current_user 
     if @tag.save
       flash[:notice] = 'New tag added!'
-      redirect_to home_index_path  
+      @tags = current_user.tags.all 
+      redirect_to new_content_path
     else 
       flash[:alert] = 'cannot be added'
       render :new, status: :unprocessable_entity
