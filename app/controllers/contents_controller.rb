@@ -1,7 +1,6 @@
 class ContentsController < ApplicationController
   before_action :authenticate_user! 
   before_action :set_content, only: %i[show edit update destroy]
-  # before_action :tags_params, only: %i[create update]
 
   def index
     @contents = current_user.contents 
