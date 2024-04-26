@@ -25,11 +25,19 @@
 <% end %>
 
 <% @contents.each do |content| %>  
-  <strong>Title</strong> - <%= content.title %> -
-  <strong>Description</strong> - <%= content.description %>
-  <strong>Tags</strong> - <%= content.tags.pluck(:name).join(', ')%>
-  <%= link_to 'View', content_path(content), class: 'btn btn-outline-info'%> 
-  <hr/>
+  <div class="card mb-2">
+    <div class="card-body">
+      <h2 class="card-title"><%= content.title %> </h2>
+      <% if content.tags.present? %> 
+        <strong>Tags</strong> - <%= content.tags.pluck(:name).join(', ')%>
+      <% end %>
+      <br>
+      <%= link_to 'View', content_path(content), class: 'btn btn-outline-info card-link'%>
+    </div>
+    <div class="card-footer">
+      <strong>Updated: <%= content.updated_at.strftime("%d/%m/%Y") %></strong>
+    </div>
+  </div>
 <% end %>
 
 <script> 
