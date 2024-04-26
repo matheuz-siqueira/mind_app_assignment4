@@ -1,0 +1,13 @@
+<%= turbo_stream.update "new-content" do %>
+  <%= render 'form', content: @content, locals: {tags: @tags} %>
+  <%
+=begin%>
+ <div class="create-tag">
+    <%= turbo_frame_tag 'tag-form' do %>
+      <%= link_to 'Add tag', new_tag_path, class: 'btn btn-outline-primary'%>
+    <% end %>
+  </div> 
+<%
+=end%>
+<% end %>
+  

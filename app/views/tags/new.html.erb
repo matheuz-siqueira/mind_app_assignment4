@@ -1,11 +1,12 @@
-<%= form_with model: @tag do |form| %>
-  <div class='form-group mb-2'>
-    <%= form.label 'Tag:' %>
-    <%= form.text_field :name, placeholder: 'development', class: 'form-control'%>
-  </div>
+<%= turbo_frame_tag 'tag-form' do %>
+  <%= form_with model: @tag, url: tags_path do |form| %>
+    <div class='form-group mb-2'>
+      <%= form.label 'Tag:' %>
+      <%= form.text_field :name, placeholder: 'development', class: 'form-control'%>
+    </div>
 
-   <div class='actions'>
-    <%= form.submit 'Save', class: 'btn btn-primary' %>
-  </div>
-
-<% end %> 
+    <div class='actions'>
+      <%= form.submit 'Save', class: 'btn btn-primary' %>
+    </div>
+  <% end %> 
+<% end %>
